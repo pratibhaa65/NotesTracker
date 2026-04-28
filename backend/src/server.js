@@ -8,16 +8,17 @@ import { connectDB } from "./config/db.js";
 dotenv.config(); 
 
 const app = express();
-connectDB(); // Connect to the database
+connectDB(); 
+
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "*",
     credentials: true
 }));
 
 app.use(express.json()); 
 
-const PORT = process.env.PORT || 5001; // Use the PORT from environment variables or default to 5001
+const PORT = process.env.PORT || 5001; 
 const __dirname = path.resolve();
 
 app.use("/api/notes",notesRoutes);
