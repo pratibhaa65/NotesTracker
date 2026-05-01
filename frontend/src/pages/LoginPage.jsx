@@ -17,7 +17,6 @@ const Login = () => {
             toast.error("Please fill all fields");
             return;
         }
-
         setLoading(true);
 
         try {
@@ -25,12 +24,12 @@ const Login = () => {
                 email,
                 password,
             });
-
+            console.log(res.data);
+            
             localStorage.setItem("token", res.data.token);
-
             toast.success("Login successful");
 
-            navigate("/");
+            navigate("/home");
         } catch (error) {
             console.log(error);
             toast.error(
