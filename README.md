@@ -3,8 +3,6 @@
 **NotesTracker** is a full-stack web application for managing notes, built with **React, Node.js, Express, MongoDB**, and **Tailwind CSS**.  
 This project focuses purely on implementing core **CRUD operations**.
 
----
-
 ## Features
 
 - Create new notes  
@@ -14,15 +12,11 @@ This project focuses purely on implementing core **CRUD operations**.
 - Delete notes  
 - Clean and minimal UI  
 
----
-
 ## Tech Stack
 
 - **Backend:** Node.js, Express.js, MongoDB (Mongoose)  
 - **Frontend:** React (Vite), Tailwind CSS  
 - **Architecture:** RESTful API  
-
----
 
 ## Backend
 
@@ -42,8 +36,6 @@ This project focuses purely on implementing core **CRUD operations**.
 - `PUT /api/notes/:id` — Update note  
 - `DELETE /api/notes/:id` — Delete note  
 
----
-
 ## Frontend
 
 - Home page (list all notes)  
@@ -51,16 +43,12 @@ This project focuses purely on implementing core **CRUD operations**.
 - Edit/update note UI  
 - View note details  
 
----
-
 ## Processes
 
 1. **Create Note**  
 2. **Fetch & Display Notes**  
 3. **Update Note**  
 4. **Delete Note**  
-
----
 
 ## Installation
 
