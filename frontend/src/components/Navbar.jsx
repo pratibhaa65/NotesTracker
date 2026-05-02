@@ -64,7 +64,7 @@ const Navbar = () => {
                       onClick={() => {
                         localStorage.removeItem("token");
                         localStorage.removeItem("user");
-                        window.location.href = "/login";
+                        window.location.href = "/";
                       }}
                       className="w-full text-left text-red-500 hover:underline">
                       Logout
