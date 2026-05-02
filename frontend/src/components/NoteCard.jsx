@@ -3,26 +3,24 @@ import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { useNavigate } from "react-router";
 import { formatDate } from "../lib/utils";
 import api from "../lib/axios";
-import { toast } from "sonner";
 
 const NoteCard = ({ note, setNotes }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/notes/${note._id}`);
 
-    toast.promise(api.delete(`/notes/${note._id}`), {
-      loading: "Deleting note...",
-      success: () => {
-        setNotes((prev) =>
-          prev.filter((n) => n._id !== note._id)
-        );
-        return "Note deleted successfully!";
-      },
-      error: "Failed to delete note",
-    });
+      setNotes((prev) =>
+        prev.filter((n) => n._id !== note._id)
+      );
+
+      setConfirmDelete(false);
+    } catch (error) {
+      console.error("Delete failed", error);
+    }
   };
 
   return (
@@ -60,7 +58,11 @@ const NoteCard = ({ note, setNotes }) => {
 
             {/* DELETE */}
             <button
-              onClick={handleDelete}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowModal(false);
+                setConfirmDelete(true);
+              }}
               className="p-2 rounded-full hover:bg-red-100 transition text-red-500"
             >
               <Trash2Icon className="w-4 h-4" />
@@ -84,6 +86,38 @@ const NoteCard = ({ note, setNotes }) => {
             <p className="text-base-content/80 whitespace-pre-wrap">
               {note.content}
             </p>
+          </div>
+        </div>
+      )}
+
+      {confirmDelete && (
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50"
+          onClick={() => setConfirmDelete(false)}
+        >
+          <div
+            className="bg-base-100 p-6 rounded-xl shadow-xl w-80 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold mb-4">
+              Are you sure?
+            </h2>
+
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-600"
+              >
+                Yes
+              </button>
+
+              <button
+                onClick={() => setConfirmDelete(false)}
+                className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-600"
+              >
+                No
+              </button>
+            </div>
           </div>
         </div>
       )}

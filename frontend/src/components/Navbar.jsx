@@ -35,11 +35,10 @@ const Navbar = () => {
           </h1>
 
           <div className="flex items-center gap-4 relative">
-
             {/* New Note Button */}
-            <Link to={"/create"} className="btn btn-primary">
-              <PlusIcon className="size-5" />
-              <span>New Note</span>
+            <Link to={"/create"} className="btn btn-primary p-2">
+              <PlusIcon className="" />
+              <span className="hidden sm:inline">New Note</span>
             </Link>
 
             {/* User Section */}
@@ -49,7 +48,9 @@ const Navbar = () => {
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <UserCircleIcon className="size-8 text-primary" />
-                <span className="font-medium">{firstName}</span>
+                <span className="hidden sm:inline font-medium">
+                  {firstName}
+                </span>
               </button>
 
               {/* Dropdown */}
