@@ -24,14 +24,15 @@ const CreatePage = () => {
         content,
       });
       toast.success("Note created successfully!");
-      navigate("/");
+      navigate("/home", { state: { refresh: true } });
+
     } catch (error) {
       console.error("Error creating note:", error);
-      if (error.response.status === 429) {
-        toast.error("Slow down! You're creating notes too quickly.", {
-          duration: 3000,
-          position: "top-center",
-        });
+
+      if (status === 401) {
+        toast.error("Session expired. Please login again.");
+        navigate("/login");
+
       } else {
         toast.error("Error creating note");
       }
@@ -44,7 +45,7 @@ const CreatePage = () => {
     <div className="min-h-screen bg-base-200">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl  mx-auto">
-          <Link to={"/"} className="btn btn-ghost mb-6">
+          <Link to={"/home"} className="btn btn-ghost mb-6">
             <ArrowLeftIcon />
             Back to Notes
           </Link>
@@ -78,7 +79,7 @@ const CreatePage = () => {
                   />
                 </div>
                 <div className="card-actions justify-end">
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn btn-primary disabled:opacity-50" disabled={loading}>
                     {loading ? "Creating..." : "Create Note"}
                   </button>
                 </div>

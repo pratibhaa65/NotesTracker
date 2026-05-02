@@ -18,26 +18,38 @@ const NoteCard = ({ note, setNotes }) => {
     }
   };
   return (
-    <Link
-      to={`/note/${note._id}`}
-      className="card bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300 p-4"
-    >
+    <div className="card bg-base-100 shadow-md hover:shadow-lg transition p-4">
 
-    <div className="card-body">
+      <Link to={`/note/${note._id}`}>
         <h3 className="card-title text-base-content">{note.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{note.content}</p>
-        <div className="card-actions justify-between items-center mt-4">
-            <span className="text-sm text-base-content/50">
-             {formatDate(new Date(note.createdAt)) }
-            </span>
-          <div className="flex-items-center gap-1" /> 
-             <PenSquareIcon className="size-4"/>
-             <button className="btn btn-ghost btn-xs text-error">
-                <Trash2Icon className="size-4"/>
-             </button>
+        <p className="text-base-content/70 line-clamp-3">
+          {note.content}
+        </p>
+      </Link>
+
+      <div className="card-actions justify-between items-center mt-4">
+        <span className="text-sm text-base-content/50">
+          {formatDate(new Date(note.createdAt))}
+        </span>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigate(`/edit/${note._id}`)}
+            className="p-2 rounded-full hover:bg-gray-200 transition"
+          >
+            <PenSquareIcon className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={handleDelete}
+            className="p-2 rounded-full hover:bg-red-100 transition text-red-500"
+          >
+            <Trash2Icon className="w-4 h-4" />
+          </button>
         </div>
+      </div>
+
     </div>
-  </Link>
   );
 }
 
